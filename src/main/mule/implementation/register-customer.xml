@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="0d05330f-2250-4577-a7c8-eb874b08f190" >
+		<salesforce:basic-connection username="mulesoftenthusiast@gmail.com" password="Silky12345" securityToken="AFhvGSow32ZWhX331GcMM9my" />
+	</salesforce:sfdc-config>
+	<flow name="register-customerFlow" doc:id="01acb63b-56d0-4fd8-be80-d6527e7b0795" >
+		<logger level="INFO" doc:name="Logger" doc:id="4fefe257-03c0-459b-8878-52d24afb54c9" />
+		<ee:transform doc:name="Transform Message" doc:id="fe7bdf6e-d33c-43d1-80e3-afc28b06aefd" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+[{
+    "contactType__c": payload.registrationRequest.contactType,
+    "countryCode__c": payload.registrationRequest.countryCode,
+    "mobile__c": payload.registrationRequest.mobile,
+    "password__c": payload.registrationRequest.password,
+    "acceptDataPolicy__c":if(payload.registrationRequest.acceptDataPolicy == true) ("true") else ("false"),
+    "recieveNews__c": if(payload.registrationRequest.recieveNews == true) ("true") else ("false"),
+    "acceptPIC__c": if(payload.registrationRequest.acceptPIC == true) ("true") else ("false"),
+    "locale__c": payload.registrationRequest.locale,
+    "captchatoken__c": payload.registrationRequest.captchatoken,
+    "recieveClaimsettle__c": if(payload.registrationRequest.recieveClaimsettle == true) ("true") else ("false")
+  }]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<salesforce:create doc:name="Create" doc:id="2331e71b-b398-47cd-b9ff-cab6afaff4d1" config-ref="Salesforce_Config" type="registration__c"/>
+		<ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  registrationResponse: {
+    eventInstanceId: "dsfhdbfhsbdfhjsb3784t2wfsd",
+    status: "success"
+  }
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+	</flow>
+	
+	
+</mule>
