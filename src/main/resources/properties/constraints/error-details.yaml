@@ -1,0 +1,36 @@
+error:
+  badRequest:
+    code: "400"
+    ptype: "BAD_REQUEST"
+    title: "Invalid Request"
+    details: "Input Contains Invalid Data, amount should be integer"
+    
+  notFound:
+    code: "404"
+    ptype: "Not_Found"
+    title: "Not Found"
+    details: "Method not found"
+    
+  notAllowed:
+    code: "405"
+    ptype: "Not_Allowed"
+    title: "Not_Allowed"
+    details: "Not_Allowed"
+    
+  notAcceptable:
+    code: "406"
+    ptype: "Not Acceptable"
+    title: "Not Acceptable"
+    details: "Not Acceptable"
+    
+  unsupportedMedia:
+    code: "415"
+    ptype: "UNsupported MEdia"
+    title: "UNsupported MEdia"
+    details: "UNsupported MEdia"
+    
+  notImplemented:
+    code: "501"
+    ptype: "Not Implemented"
+    title: "Not Implemented"
+    details: "Not Implemented"   

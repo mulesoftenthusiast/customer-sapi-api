@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
+	
+	<flow name="customer-stateFlow" doc:id="01acb63b-56d0-4fd8-be80-d6527e7b0795" >
+		<ee:transform doc:name="Transform Message to create SFDC payload" doc:id="fe7bdf6e-d33c-43d1-80e3-afc28b06aefd" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+[{
+    "contactType__c": payload.customerStateRequest.contactType,
+    "countryCode__c": payload.customerStateRequest.countryCode,
+    "mobile__c": payload.customerStateRequest.mobile,
+    "password__c": payload.customerStateRequest.password,
+     "status__c": if(payload.customerStateRequest.status == true) ("true") else ("false")
+  }]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="4fefe257-03c0-459b-8878-52d24afb54c9" message="#[%dw 2.0&#10;&#10;output application/json indent= false&#10;---&#10;{&#10;Timestamp: now(),&#10;transactionId: vars.headers_var.'x-cms-transactionId',&#10;AppName: app.name,&#10;FlowName: flow.name,&#10;BusinessProcessName: &quot;Customer State&quot;,&#10;Category: &quot;Transaction&quot;,&#10;OriginApplication: &quot;Process&quot;,&#10;DestinationApplication: &quot;Salesforce&quot;,&#10;CustomerId: &quot;N/A&quot;,&#10;txnState: &quot;Begin SFDC&quot;&#10;}]"/>
+		<salesforce:create doc:name="Create" doc:id="2331e71b-b398-47cd-b9ff-cab6afaff4d1" config-ref="Salesforce_Config" type="CustomerState__c"/>
+		<logger level="INFO" doc:name="Logger" doc:id="916c811a-0abf-44a8-911c-f84109b59c96" message="#[%dw 2.0&#10;&#10;output application/json indent= false&#10;---&#10;{&#10;Timestamp: now(),&#10;transactionId: vars.headers.'x-cms-transactionId',&#10;AppName: app.name,&#10;FlowName: flow.name,&#10;BusinessProcessName: &quot;Customer State&quot;,&#10;Category: &quot;Transaction&quot;,&#10;OriginApplication: &quot;Process&quot;,&#10;DestinationApplication: &quot;Salesforce&quot;,&#10;CustomerId: &quot;N/A&quot;,&#10;txnState: &quot;End SFDC&quot;&#10;}]"/>
+		<ee:transform doc:name="Transform Message to create SAPI response">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  registrationResponse: {
+    eventInstanceId: "dsfhdbfhsbdfhjsb3784t2wfsd",
+    status: "success"
+  }
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+	</flow>
+	
+	
+</mule>

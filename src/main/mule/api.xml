@@ -17,7 +17,19 @@
         </error-handler>
     </flow>
     <flow name="post:\customers\registration:application\json:api-config">
-		<flow-ref doc:name="Flow Reference" doc:id="4d496e0b-5f32-4649-a3ba-58a3afec0453" name="register-customerFlow"/>
-      
+		<flow-ref doc:name="Flow Reference to call Initialize Requets Data" doc:id="2feed608-0306-4f8c-9e7e-d33638702b85" name="initialize-request-data" />
+		<logger level="INFO" doc:name="Start Logger for Customer Reg API" doc:id="ce702ce5-04ae-4823-ad8e-94898a343453" message="#[%dw 2.0&#10;&#10;output application/json indent= false&#10;---&#10;{&#10;Timestamp: now(),&#10;transactionId: vars.headers.'x-cms-transactionId',&#10;AppName: app.name,&#10;FlowName: flow.name,&#10;BusinessProcessName: &quot;Customer Reg&quot;,&#10;Category: &quot;Transaction&quot;,&#10;OriginApplication: &quot;Process&quot;,&#10;DestinationApplication: &quot;Salesforce&quot;,&#10;CustomerId: &quot;N/A&quot;,&#10;txnState: &quot;Start&quot;&#10;}]"/>
+		<flow-ref doc:name="Flow Reference to call Customer Registeration API" doc:id="4d496e0b-5f32-4649-a3ba-58a3afec0453" name="register-customerFlow"/>
+		<logger level="INFO" doc:name="End Logger for Customer Reg API" doc:id="e2998a08-11b7-4db6-ba00-d85d6b8485b3" message="#[%dw 2.0&#10;&#10;output application/json indent= false&#10;---&#10;{&#10;Timestamp: now(),&#10;transactionId: vars.headers.'x-cms-transactionId',&#10;AppName: app.name,&#10;FlowName: flow.name,&#10;BusinessProcessName: &quot;Customer Reg&quot;,&#10;Category: &quot;Transaction&quot;,&#10;OriginApplication: &quot;Process&quot;,&#10;DestinationApplication: &quot;Salesforce&quot;,&#10;CustomerId: &quot;N/A&quot;,&#10;txnState: &quot;End&quot;&#10;}]"/>
+		<error-handler ref="app-globalerrorError_Handler" /> 
+    </flow>
+    
+    
+     <flow name="post:\customerState:application\json:api-config">
+		<flow-ref doc:name="Flow Reference to call Initialize Requets Data" doc:id="323f2311-d159-45b4-8ca4-36dafe03a9fa" name="initialize-request-data" />
+		<logger level="INFO" doc:name="Start Logger for Customer Reg API" doc:id="7ce60ea5-60da-4296-b6b5-6be8c71a8b36" message="#[%dw 2.0&#10;&#10;output application/json indent= false&#10;---&#10;{&#10;Timestamp: now(),&#10;transactionId: vars.headers.'x-cms-transactionId',&#10;AppName: app.name,&#10;FlowName: flow.name,&#10;BusinessProcessName: &quot;Customer State&quot;,&#10;Category: &quot;Transaction&quot;,&#10;OriginApplication: &quot;Process&quot;,&#10;DestinationApplication: &quot;Salesforce&quot;,&#10;CustomerId: &quot;N/A&quot;,&#10;txnState: &quot;Start&quot;&#10;}]"/>
+		<flow-ref doc:name="Flow Reference to call Customer Registeration API" doc:id="c190ec04-d8b8-45dd-99a8-6e465b351b7a" name="customer-stateFlow"/>
+		<logger level="INFO" doc:name="End Logger for Customer Reg API" doc:id="a4283f2a-350e-43ae-9ada-15a76e0fd2bf" message="#[%dw 2.0&#10;&#10;output application/json indent= false&#10;---&#10;{&#10;Timestamp: now(),&#10;transactionId: vars.headers.'x-cms-transactionId',&#10;AppName: app.name,&#10;FlowName: flow.name,&#10;BusinessProcessName: &quot;Customer State&quot;,&#10;Category: &quot;Transaction&quot;,&#10;OriginApplication: &quot;Process&quot;,&#10;DestinationApplication: &quot;Salesforce&quot;,&#10;CustomerId: &quot;N/A&quot;,&#10;txnState: &quot;End&quot;&#10;}]"/>
+		<error-handler ref="app-globalerrorError_Handler" />
     </flow>
 </mule>
