@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="api-test-suite.xml" />
+	<munit:test name="api-test-suite-api-mainTestAPIKIT:BAD_REQUEST" doc:id="6d5b9b6d-34fb-4263-ad97-5cd0642e3568" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="0e5d40e6-54d5-4556-ae90-c7ab3cd47718" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="api-config" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="b888cf9b-44e9-40c6-9732-40793a557200" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:BAD_REQUEST" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<try doc:name="Try" doc:id="fd1340c6-a111-4533-8ee8-00f3c191ea8c" >
+				<flow-ref doc:name="Flow-ref to api-main" doc:id="fec3d322-2e1f-4a6c-be25-564e73ae8980" name="api-main" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="3e965ee7-8b02-4bba-837f-716a9409c521" >
+						<logger level="INFO" doc:name="Logger" doc:id="d6ed33a0-c4f1-4fd4-a3ad-3228e6835d57" />
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="38428474-1570-4159-ba5a-8dd38558c89e" actual="#[vars.httpStatus]" expected='#["400"]'/>
+		</munit:validation>
+	</munit:test>
+	
+	
+	
+	
+	<munit:test name="api-test-suite-api-mainTestAPIKIT:NOT_FOUND" doc:id="d85a10b6-2a3b-422e-95ac-2c2b1b758f19" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="c885938e-ceee-4245-911c-f9808bbf53cc" processor="apikit:console">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="api-config" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="54506cb6-7363-4feb-8b45-935122030338" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_FOUND" />
+				</munit-tools:then-return>
+			
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<try doc:name="Try" doc:id="3dd4fa03-1325-4037-9002-9778b5305d8f" >
+				<flow-ref doc:name="Flow-ref to api-main" doc:id="d6ca5407-9a8a-48bf-ad44-a59af87fe6d4" name="api-console" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="f0c33764-7db9-41e9-a3c8-7a5aecda53cf" >
+						<logger level="INFO" doc:name="Logger" doc:id="c2c07278-b7f4-4d97-9a44-96d394f283c8" />
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="0a5a60a5-e088-41c4-9dd4-9053b6cd7d8a" actual="#[vars.httpStatus]" expected='#["404"]'/>
+		</munit:validation>
+	</munit:test>
+	
+	
+	
+	
+	<munit:test name="api-test-suite-api-mainTestAPIKIT:METHOD_NOT_ALLOWED" doc:id="a97fbd43-33a0-4853-9fe4-9932808e9222" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="91a5eb14-2f60-4b3c-b218-c15b616bb506" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:METHOD_NOT_ALLOWED" />
+				</munit-tools:then-return>
+			
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<try doc:name="Try" doc:id="5df190f8-0842-473f-9ed3-d6818b8fa04b" >
+				<flow-ref doc:name="Flow-ref to api-main" doc:id="a164c066-1d8b-491c-8c1b-fc4b666e2415" name="api-main" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="8971c3f3-1933-4549-9b79-4732f9486cea" >
+						<logger level="INFO" doc:name="Logger" doc:id="e2b9a47a-5a36-42e9-a5b3-7aec2963023d" />
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="ff83a101-7bfb-4888-94af-bb60ca924c9a" actual="#[error.errorType]" expected='#["APIKIT:METHOD_NOT_ALLOWED"]'/>
+		</munit:validation>
+	</munit:test>
+	
+	
+	
+	
+	<!-- <munit:test name="api-test-suite-api-mainTestAPIKIT:NOT_ACCEPTABLE" doc:id="54c34c7b-ffbe-43f3-9d0b-84d4b8860b56" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="a2b60136-45be-4b75-a14e-e80061b6894c" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_ACCEPTABLE" />
+				</munit-tools:then-return>
+			
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<try doc:name="Try" doc:id="15ea62eb-9d11-453b-9764-4444b4a9e2b9" >
+				<flow-ref doc:name="Flow-ref to api-main" doc:id="355f47f8-0b0d-43a9-9ad2-ee92f402d75b" name="api-main" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="c5d4eb7f-541c-41ee-8751-c2c5345a91c9" >
+						<logger level="INFO" doc:name="Logger" doc:id="96d5712e-f2c2-4442-b11b-8f6aa74c2858" />
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="cdea527e-9001-4c46-a904-b3707330e68f" actual="#[payload]" expected='#[{message: "Not_acceptable"}]'/>
+		</munit:validation>
+	</munit:test>
+	
+	
+	
+	<munit:test name="api-test-suite-api-mainTestAPIKIT:UNSUPPORTED_MEDIA_TYPE" doc:id="18bd74e3-f684-4669-affe-86372d7f3fe5" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="8188bdd4-5bad-470c-acfc-a6957893319d" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:UNSUPPORTED_MEDIA_TYPE" />
+				</munit-tools:then-return>
+			
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<try doc:name="Try" doc:id="f8ef948e-3f31-415a-baba-0787ab7f3d04" >
+				<flow-ref doc:name="Flow-ref to api-main" doc:id="0eaed7ab-1758-4f05-9ddb-bc2d70927e3f" name="api-main" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="9239d197-04ae-462f-8ee9-1cef597063fa" >
+						<logger level="INFO" doc:name="Logger" doc:id="d1567c75-1185-422f-8fbe-2d63be417469" />
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="e7aa6fd5-bcaa-408e-bb09-7fb44b46949e" actual="#[payload]" expected='#[{message: "Unsupported_media_type"}]'/>
+		</munit:validation>
+	</munit:test>
+	
+	
+	
+	
+	
+	<munit:test name="api-test-suite-api-mainTestAPIKIT:NOT_IMPLEMENTED" doc:id="09ee6a00-e6b3-489a-97c3-e14fbc7be283" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="687abd1a-c383-4fd6-9502-c69524bde622" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_IMPLEMENTED" />
+				</munit-tools:then-return>
+			
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<try doc:name="Try" doc:id="532113a0-a944-4331-a71f-ea7f6bf7b5f9" >
+				<flow-ref doc:name="Flow-ref to api-main" doc:id="5a1f972f-6472-4c95-8da5-454f5445d72c" name="api-main" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="d55b4d4f-f25a-44cb-ba37-b868d4c22e48" >
+						<logger level="INFO" doc:name="Logger" doc:id="7ee0f59e-f529-43bc-8277-1de8cceccddc" />
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="4e09afb3-16fa-42c7-bddd-1731891712d5" actual="#[payload]" expected='#[{message: "Not Implemented"}]'/>
+		</munit:validation>
+	</munit:test> -->
+	
+	
+	<munit:test name="api-test-suite-api-mainTestSALESFORCE:INVALID_INPUT" doc:id="5aae1f0c-536f-4768-921b-b3fa700054bd" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="46ab9a80-e9db-45ee-8099-5a04ef3551af" processor="salesforce:create">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Create call to SFDC Registration Object To insert Registration Data " attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="6e6bb0f2-d341-4a34-a26c-aaf872928dc9" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="Salesforce_Config" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="CustomeState__c" attributeName="type" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="SALESFORCE:INVALID_INPUT" />
+				</munit-tools:then-return>
+			
+
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<try doc:name="Try" doc:id="e3aca6e2-968a-4472-af62-e725e0e373e4" >
+				<flow-ref doc:name="Flow-ref to api-main" doc:id="2839d2b5-ff6f-4fd5-b751-fc00b748e6c5" name="post-customer-state-implementation-Flow" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="3a85bb56-3814-47d1-b537-861d1455957f" >
+						<logger level="INFO" doc:name="Logger" doc:id="ed53ab8c-e681-4913-850f-0eab9da86a9d" />
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="1b97abd0-66cc-4436-91bb-097630b4a132" actual="#[vars.httpStatus]" expected='#[500]'/>
+		</munit:validation>
+	</munit:test>
+	
+	
+	
+	<munit:test name="api-test-suite-api-mainTestCS:INVALID_USER" doc:id="6f0dcd08-a9bb-4b2f-a841-8b4fae8a5092" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="70ba9da7-02d7-48c0-ad67-43e85a1de6a2" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="ba262940-d030-433b-9133-887b2d37acd5" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration-SMS" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${http.requester.sms.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="CS:INVALID_USER" />
+				</munit-tools:then-return>
+			
+
+
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<try doc:name="Try" doc:id="63cc42d0-b8ee-421e-a0f6-4a6576be4c66" >
+				<flow-ref doc:name="Flow-ref to api-main" doc:id="710ae14d-3a56-491b-ab28-38d49583f2f2" name="post:\verification:application\json:api-config" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="5ee4697f-6cd8-4623-b55f-a780bb761c59" >
+						<logger level="INFO" doc:name="Logger" doc:id="91c490ea-dff8-4510-9904-1b56c64b5b82" />
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="046ec2dc-33de-40de-8f03-9667d03a0fe8" actual="#[vars.httpStatus]" expected='#[500]'/>
+		</munit:validation>
+	</munit:test>
+	
+
+
+</mule>

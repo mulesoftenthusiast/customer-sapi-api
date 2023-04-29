@@ -1,0 +1,31 @@
+{
+  "headers": {
+    "x-cms-transactionid": "hdsfhjdh-jxbv859-sjdf7643-3746bbd334",
+    "clientid": "sdfkjahsrjdhfgjhsd",
+    "clientsecret": "dafsvsdgfvsdfdshgf",
+    "content-type": "application/json",
+    "user-agent": "PostmanRuntime/7.29.0",
+    "accept": "*/*",
+    "postman-token": "4295a47f-16e9-4577-88c2-5ec998612d4a",
+    "host": "0.0.0.0:8081",
+    "accept-encoding": "gzip, deflate, br",
+    "connection": "keep-alive",
+    "content-length": "326"
+  },
+  "clientCertificate": null,
+  "method": "POST",
+  "scheme": "http",
+  "queryParams": {},
+  "requestUri": "/api/customers/registration",
+  "queryString": "",
+  "version": "HTTP/1.1",
+  "maskedRequestPath": "/customers/registration",
+  "listenerPath": "/api/*",
+  "relativePath": "/api/customers/registration",
+  "localAddress": "/127.0.0.1:8081",
+  "uriParams": {},
+  "rawRequestUri": "/api/customers/registration",
+  "rawRequestPath": "/api/customers/registration",
+  "remoteAddress": "/127.0.0.1:62371",
+  "requestPath": "/api/customers/registration"
+}

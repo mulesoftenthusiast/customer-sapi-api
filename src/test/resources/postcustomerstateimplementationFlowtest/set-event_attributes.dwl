@@ -1,0 +1,31 @@
+{
+  "headers": {
+    "x-cms-transactionid": "hdsfhjdh-jxbv859-sjdf7643-3746bbd334",
+    "clientid": "sdfkjahsrjdhfgjhsd",
+    "clientsecret": "dafsvsdgfvsdfdshgf",
+    "content-type": "application/json",
+    "user-agent": "PostmanRuntime/7.29.0",
+    "accept": "*/*",
+    "postman-token": "3cf51c5a-bf8d-483e-bc47-c7cf8ec1d1e9",
+    "host": "localhost:8081",
+    "accept-encoding": "gzip, deflate, br",
+    "connection": "keep-alive",
+    "content-length": "163"
+  },
+  "clientCertificate": null,
+  "method": "POST",
+  "scheme": "http",
+  "queryParams": {},
+  "requestUri": "/api/customerState",
+  "queryString": "",
+  "version": "HTTP/1.1",
+  "maskedRequestPath": "/customerState",
+  "listenerPath": "/api/*",
+  "relativePath": "/api/customerState",
+  "localAddress": "/127.0.0.1:8081",
+  "uriParams": {},
+  "rawRequestUri": "/api/customerState",
+  "rawRequestPath": "/api/customerState",
+  "remoteAddress": "/127.0.0.1:52137",
+  "requestPath": "/api/customerState"
+}

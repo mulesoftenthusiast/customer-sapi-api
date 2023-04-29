@@ -4,8 +4,8 @@
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-	<sub-flow name="error-response-subflow" doc:id="07068019-f747-4f46-8387-b54633a6d738" >
-		<ee:transform doc:id="77ae35a7-1f8d-4957-b5d9-babf3fb60e8c">
+	<sub-flow name="error-response-subFlow" doc:id="cbf33b68-ea52-455b-a85a-d45a50eef34b" >
+		<ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:name="Transform Message for error Request" doc:id="80f5b9b5-4550-44d5-859f-4b7ac794990a">
                     <ee:message>
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
@@ -16,7 +16,7 @@ output application/json
   "success": true,
   "eventId": vars.headers.'x-cms-transactionId',
   "error": {
-    "type": vars.'type',
+    "type": vars.errorType,
     "title": vars.title,
     "details": vars.details
   }
@@ -26,27 +26,15 @@ output application/json
                     </ee:variables>
                 </ee:transform>
 	</sub-flow>
-	<sub-flow name="initialize-request-data" doc:id="cbf74b85-82ff-4abb-98af-d183596b7332" >
-		<ee:transform doc:name="Transform Message Initialize Variables" doc:id="bb55037b-08e2-4f23-90db-5f0443e784ff">
+	<sub-flow name="initialise-request-data-subFlow" doc:id="f157c248-9257-478f-924c-3f1c9f42e831" >
+		<ee:transform doc:name="Transform Message Initialize Variables" doc:id="b858b9e3-9fdf-43ae-86d0-7dea909ed233">
 			<ee:message>
 			</ee:message>
 			<ee:variables>
-				<ee:set-variable variableName="headers"><![CDATA[if( attributes.headers != null  and attributes.headers !="")
-(attributes.headers)
-else 
-("")]]></ee:set-variable>
-				<ee:set-variable variableName="queryParams"><![CDATA[if( attributes.queryParams != null  and attributes.queryParams !="")
-(attributes.queryParams)
-else 
-("")]]></ee:set-variable>
-				<ee:set-variable variableName="uriParams"><![CDATA[if( attributes.uriParams != null  and attributes.uriParams !="")
-(attributes.uriParams)
-else 
-("")]]></ee:set-variable>
-				<ee:set-variable variableName="requestPayload"><![CDATA[if( payload != null  and attributes !="")
-(payload)
-else 
-("")]]></ee:set-variable>
+				<ee:set-variable variableName="headers"><![CDATA[attributes.headers default ""]]></ee:set-variable>
+				<ee:set-variable variableName="queryParams"><![CDATA[attributes.queryParams default ""]]></ee:set-variable>
+				<ee:set-variable variableName="uriParams"><![CDATA[attributes.uriParams default ""]]></ee:set-variable>
+				<ee:set-variable variableName="requestPayload"><![CDATA[payload default ""]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
 	</sub-flow>
