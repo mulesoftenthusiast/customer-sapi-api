@@ -3,13 +3,13 @@ pipeline {
   stages {
     stage('Build Application') { 
       steps {
-        bat 'mvn clean install'
+        sh 'mvn clean install'
       }
     }
  	stage('Test') { 
       steps {
         echo 'Test Appplication...' 
-        bat 'mvn test'
+        sh 'mvn test'
       }
     }
  	
@@ -22,7 +22,7 @@ pipeline {
       steps {
         echo 'Deploying only because of code commit...'
         echo 'Deploying to  dev environent....'
-        bat 'mvn package deploy -DmuleDeploy -Dusername=${ANYPOINT_CREDENTIALS_USR} -Dpassword=${ANYPOINT_CREDENTIALS_PSW} -DworkerType=Micro -Dworkers=1 -Dregion=us-west-2'
+        sh 'mvn package deploy -DmuleDeploy -Dusername=${ANYPOINT_CREDENTIALS_USR} -Dpassword=${ANYPOINT_CREDENTIALS_PSW} -DworkerType=Micro -Dworkers=1 -Dregion=us-west-2'
       }
 	  
 	}
