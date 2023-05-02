@@ -60,7 +60,7 @@
 						<username>raman09021995</username>
 						<password>Silky1234567</password>
 						<applicationName>${project.artifactId}</applicationName>
-						<environment>SANDBOX</environment>
+						<environment>Sandbox</environment>
 						<workerType>${workerType}</workerType>
 						<workers>1</workers>
 						<objectStoreV2>true</objectStoreV2>
