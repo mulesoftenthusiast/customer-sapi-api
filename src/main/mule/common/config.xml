@@ -27,4 +27,5 @@ http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/sc
 	<http:request-config name="HTTP_Request_configuration-SMS" doc:name="HTTP Request configuration" doc:id="d74fe85a-7f4b-4373-8980-7abc79bddd0e" >
 		<http:request-connection host="${http.requester.sms.host}" port="${http.requester.sms.port}" protocol="HTTPS"/>
 	</http:request-config>
+	<api-gateway:autodiscovery apiId="${instanceId}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="75f9b5f6-79d0-49a6-81bb-b5e202b2d105" flowRef="api-main" />
 	</mule>
