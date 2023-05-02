@@ -2,9 +2,9 @@ pipeline {
   agent any
   stages {
     stage('Build Application') { 
-      steps {
-        sh 'mvn clean install'
-      }
+      withMaven(maven: 'mvn') {
+            sh "mvn clean package"
+        }
     }
  	stage('Test') { 
       steps {
